@@ -768,12 +768,21 @@ class App {
 
         try {
             var tokenFromCodename = parseInt(await this.contract.methods.codeName_to_tokenId(odpStoreNameValue).call());
-            var nftHash = (await odpStoreContract.methods.tokenId_to_hashCustomerApp(tokenFromCodename).call());
-            document.location.href="https://gw.crustapps.com"+"/ipfs/"+nftHash;
+            if (tokenFromCodename>0){
+                var nftHash = (await this.contract.methods.tokenId_to_hashCustomerApp(tokenFromCodename).call());
+                document.location.href="https://gw.crustapps.com"+"/ipfs/"+nftHash;
+            } else {
+                this.renderNotFound();
+            }
+            
         } catch (error) {
-            this.selectedToken = undefined;
+            this.renderNotFound();
         }
 
+    }
+
+    async renderNotFound(){
+        document.getElementById("textmsg").innerHTML="App not found";
     }
 
     async load() {
