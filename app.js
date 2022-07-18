@@ -763,7 +763,7 @@ class App {
     async loadWeb3() {
         this.web3 = new Web3("https://polygon-rpc.com");
         this.contract = new this.web3.eth.Contract(this.contractAbi, this.contractAddress);
-        var odpStoreNameValue=document.location.pathname.split('/')[document.location.pathname.split('/').length-1];
+        var odpStoreNameValue=document.location.pathname.split('/')[document.location.pathname.split('/').length-1].replace("%20"," ");
         console.log("CODENAME: "+odpStoreNameValue);
 
         try {
