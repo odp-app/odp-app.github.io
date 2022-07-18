@@ -761,6 +761,7 @@ class App {
     }
 
     async loadWeb3() {
+        const gateway="https://gw.crustapps.net";
         this.web3 = new Web3("https://polygon-rpc.com");
         this.contract = new this.web3.eth.Contract(this.contractAbi, this.contractAddress);
         var odpStoreNameValue=document.location.pathname.split('/')[document.location.pathname.split('/').length-1].replace("%20"," ");
@@ -770,7 +771,8 @@ class App {
             var tokenFromCodename = parseInt(await this.contract.methods.codeName_to_tokenId(odpStoreNameValue).call());
             if (tokenFromCodename>0){
                 var nftHash = (await this.contract.methods.tokenId_to_hashCustomerApp(tokenFromCodename).call());
-                document.location.href="https://gw.crustapps.com"+"/ipfs/"+nftHash;
+                var jsonMetaData=(await (await fetch(gateway+"/ipfs/"+nftHash)).json())
+                document.location.href=gateway+"/ipfs/"+jsonMetaData.external_url;
             } else {
                 this.renderNotFound();
             }
