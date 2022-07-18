@@ -772,7 +772,7 @@ class App {
             if (tokenFromCodename>0){
                 var nftHash = (await this.contract.methods.tokenId_to_hashCustomerApp(tokenFromCodename).call());
                 var jsonMetaData=(await (await fetch(gateway+"/ipfs/"+nftHash)).json())
-                document.location.href=gateway+"/ipfs/"+jsonMetaData.external_url;
+                document.location.href=jsonMetaData.external_url;
             } else {
                 this.renderNotFound();
             }
